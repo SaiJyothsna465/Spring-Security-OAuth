@@ -1,0 +1,89 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: instructor-microservice
+        uri: http://localhost:8083/
+        predicates:
+        - Method=GET
+        - Path=/instructor/getAllInstructors
+        
+        
+      - id: instructor-microservice
+        uri: http://localhost:8083/
+        predicates:
+        - Method=GET
+        - Path=/instructor/getById/**
+        
+       
+      - id: instructor-microservice
+        uri: http://localhost:8083/
+        predicates:
+        - Method=POST
+        - Path=/instructor/create
+        
+
+      - id: student-course-security-service
+        uri: http://localhost:9999/
+        predicates:
+        - Method=POST
+        - Path=/auth/register
+        
+      - id: student-course-security-service
+        uri: http://localhost:9999/
+        predicates:
+        - Method=POST
+        - Path=/auth/token
+        
+      - id: course-microservice
+        uri: http://localhost:8082/
+        predicates:
+        - Method=POST
+        - Path=/course/create
+        
+        
+      - id: course-microservice
+        uri: http://localhost:8082/
+        predicates:
+        - Method=GET
+        - Path=/course/getAllCourses
+        
+          
+      - id: course-microservice
+        uri: http://localhost:8082/
+        predicates:
+        - Method=GET
+        - Path=/course/getById/**
+        
+        
+      - id: student-microservice
+        uri: http://localhost:8080/
+        predicates:
+        - Method=GET
+        - Path=/student/getAllStudents
+        
+        
+      - id: student-microservice
+        uri: http://localhost:8080/
+        predicates:
+        - Method=GET
+        - Path=/student/getById/**
+        
+       
+      - id: student-microservice
+        uri: http://localhost:8080/
+        predicates:
+        - Method=POST
+        - Path=/student/create
+        
+        
+        
+#okta configuration for api-gateway      
+okta:
+  oauth2:
+    issuer: https://dev-48625516.okta.com/oauth2/default
+    audience: api://default
+    client-id: 0oa9a0rkh9JW3wPl55d7
+    client-secret: O68g3JOo2fnR0KGLXdH62TtkNM4OwxSRBsPyQNED
+    scopes: openid, profile, email, offline_access
+        
